@@ -1,49 +1,45 @@
 #include "lists.h"
 
 /**
- * insert_node - inserts a new node
- * at a given position.
- * @head: head of a list.
- * @number: index of the list where the new node is
- * added.
- * Return: the address of the new node, or NULL if it
- * failed.
+ * insert_node - Entry Point
+ *
+ * @head: the list passed in
+ * @number: value of the new node
+ *
+ * Description: Inserts a node in an ordered linked list
+ *
+ * Return:  The address of the new node or NULL if failure
  */
+
 listint_t *insert_node(listint_t **head, int number)
 {
-	listint_t *new;
-	listint_t *h;
-	listint_t *h_prev;
+listint_t *newNode, *firstNode;
 
-	h = *head;
-	new = malloc(sizeof(listint_t));
+firstNode = *head;
 
-	if (new == NULL)
-		return (NULL);
+newNode = malloc(sizeof(listint_t));
+if (newNode == NULL)
+return (NULL);
+newNode->n = number;
 
-	while (h != NULL)
-	{
-		if (h->n > number)
-			break;
-		h_prev = h;
-		h = h->next;
-	}
+if (*head == NULL || (*head)->n > number)
+{
+newNode->next = *head;
+*head = newNode;
+return (newNode);
+}
 
-	new->n = number;
-
-	if (*head == NULL)
-	{
-		new->next = NULL;
-		*head = new;
-	}
-	else
-	{
-		new->next = h;
-		if (h == *head)
-			*head = new;
-		else
-			h_prev->next = new;
-	}
-
-	return (new);
+while (firstNode->next != NULL)
+{
+if ((firstNode->next)->n >= number)
+{
+newNode->next = firstNode->next;
+firstNode->next = newNode;
+return (newNode);
+}
+firstNode = firstNode->next;
+}
+firstNode->next = newNode;
+newNode->next = NULL;
+return (newNode);
 }
