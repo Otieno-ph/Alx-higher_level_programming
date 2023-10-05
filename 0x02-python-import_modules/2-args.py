@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-from sys import argv
+if __name__ == "__main__":
+    import sys
 
+    length = (len(sys.argv) - 1)
 
-def main():
-    length = len(argv) - 1
-    word = "arguments"
-
-    if length == 0:
-        print(f"{length} {word}.")
-    elif length != 1:
-        print(f"{length} {word}:")
+    if length == 1:
+        print("1 argument:")
+    elif length == 0:
+        print("0 arguments.")
     else:
-        word = "argument"
-        print(f"{length} {word}:")
+        print("{} arguments:".format(length))
+
+    for x in range(1, len(sys.argv)):
+        print("{:d}:".format(x), str(sys.argv[x]))
